@@ -33,7 +33,7 @@ The input mask is applied during the "blur" event on the input.
 
                     let superTemplateContents = document.importNode(customElements.get('paper-input').template.content, true);
                     let prefixSlot = superTemplateContents.querySelector('[slot="prefix"]');
-                    prefixSlot.textContent = '$';
+                    prefixSlot.textContent = '€';
 
                     memoizedTemplate.content.appendChild(superTemplateContents);
                 }
@@ -67,6 +67,7 @@ The input mask is applied during the "blur" event on the input.
                 super._focusBlurHandler(evt);
 
                 if (this.focused && !this._shiftTabPressed && this._focusableElement && this._focusableElement.select) {
+
                     this._focusableElement.select();
                 }
 
@@ -85,12 +86,13 @@ The input mask is applied during the "blur" event on the input.
             }
 
             handleOnFocusOut(e) {
+
                 if (typeof this.value === 'undefined' || this.value == null) {
                     this.set('value', '0.00');
                 }
-                var parsedValue = parseFloat(this.value.replace(/,/g, ''));
+                var parsedValue = parseFloat(this.value.replace(/\./g, ''));
 
-                this.setProperties({ 'value': parsedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 'currencyValue': parsedValue });
+               this.setProperties({ 'value': parsedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 'currencyValue': parsedValue });
             }
         }
 
