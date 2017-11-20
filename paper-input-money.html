@@ -91,8 +91,13 @@ The input mask is applied during the "blur" event on the input.
                 if (typeof this.value === 'undefined' || this.value == null) {
                     this.set('value', '0.00');
                 }
-                var parsedValue = (this.value.replace(/\,/g, '.'));
-                parsedValue= accounting.formatMoney(parsedValue, "", 2, ".", ",")
+                if(this.value.indexOf('.')!=-1 || this.value.indexOf(',')!=-1)
+                    {
+                        var parsedValue = (this.value.replace(/\,/g, '.'));
+                        parsedValue= accounting.formatMoney(parsedValue, "", 2, ".", ",")
+                    }
+                else
+                    var parsedValue = this.value+",00";
 
                this.setProperties({ 'value': parsedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 'currencyValue': parsedValue });
             }
