@@ -97,7 +97,7 @@ The input mask is applied during the "blur" event on the input.
                         parsedValue= accounting.formatMoney(parsedValue, "", 2, ".", ",")
                     }
                 else
-                    var parsedValue = this.value+",00";
+                    var parsedValue = accounting.formatMoney(this.value, "", 2, ".", ",")
 
                this.setProperties({ 'value': parsedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 'currencyValue': parsedValue });
             }
