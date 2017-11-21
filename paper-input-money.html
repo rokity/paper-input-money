@@ -38,7 +38,6 @@ The input mask is applied during the "blur" event on the input.
 
                     memoizedTemplate.content.appendChild(superTemplateContents);
                 }
-
                 return memoizedTemplate;
             }
 
@@ -52,7 +51,7 @@ The input mask is applied during the "blur" event on the input.
                         observer: 'onCurrencyValueChanged'
                     },
                     'parsedValue': {
-                        type: Number,
+                        type: String,
                         computed: 'computeParsedValue(value)',
                         notify: true
                     }
@@ -61,7 +60,7 @@ The input mask is applied during the "blur" event on the input.
 
             ready() {
                 super.ready();
-                this.setProperties({ 'allowedPattern': '[0-9\.\,\=\-]', 'value': '0.00' });
+                // this.setProperties({ 'allowedPattern': '[0-9\.\,\=\-]', 'value': '0.00' });
             }
 
             _focusBlurHandler(evt) {
@@ -83,7 +82,9 @@ The input mask is applied during the "blur" event on the input.
             }
 
             computeParsedValue(value) {
-                return parseFloat(value.replace(/,/g, ''));
+                // return parseFloat(value.replace(/,/g, ''));
+                var a=(accounting.formatMoney(value, "", 2, ".", ","))
+               return  a;
             }
 
             handleOnFocusOut(e) {
@@ -98,7 +99,7 @@ The input mask is applied during the "blur" event on the input.
                     }
                 else
                     var parsedValue = accounting.formatMoney(this.value, "", 2, ".", ",")
-
+                    
                this.setProperties({ 'value': parsedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), 'currencyValue': parsedValue });
             }
         }
